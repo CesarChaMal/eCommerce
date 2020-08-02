@@ -13,6 +13,4 @@ public class DataServices {
     public UserService userService;
     @Autowired
     public RoleService roleService;
-
-
 }
