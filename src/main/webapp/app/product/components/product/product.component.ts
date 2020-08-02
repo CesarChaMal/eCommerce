@@ -13,7 +13,7 @@ export class ProductComponent implements OnInit {
   @Output() productClicked: EventEmitter<any> = new EventEmitter() ;
 
   today = new Date();
-  constructor(private repositoriesService: RepositoriesService,) {
+  constructor(private repositoriesService: RepositoriesService) {
    }
 
   ngOnInit() {

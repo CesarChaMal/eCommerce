@@ -28,9 +28,6 @@ public class ProductController {
     @Autowired
     private DataServices dataServices;
 
-
-
-
     //http://localhost:8080/api/products/?orderBy=title&direction=DESC&page=0&pageSize=10
     @RequestMapping(value = "/", params = {
             "orderBy",

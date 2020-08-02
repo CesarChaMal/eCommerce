@@ -3,10 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  url_api: 'http://humbertopedraza.dynu.com:9500/api',
-  //url_api: 'http://localhost:8080/api',
+  url_api: 'http://localhost:8080/api',
   production: false
 };
+
+/*
+export const environment = {
+  url_api: 'http://humbertopedraza.dynu.com:9500/api',
+  production: true
+};
+*/
 
 /*
  * For easier debugging in development mode, you can import the following file
