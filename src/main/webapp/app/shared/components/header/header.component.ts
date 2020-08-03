@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
+import { RepositoriesService } from 'app/core/services/repositories.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
@@ -11,9 +11,9 @@ import { of, Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  userName$: Observable<string>;
+  userName$: Observable<string> | undefined;
   authorities: any;
-  isLogged$: Observable<boolean>;
+  isLogged$: Observable<boolean> | undefined;
 
   total$: Observable<string>;
   constructor(

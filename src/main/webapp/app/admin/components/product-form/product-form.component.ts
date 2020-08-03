@@ -2,12 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductListComponent } from '../product-list/product-list.component';
 import { Router } from '@angular/router';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
+import { RepositoriesService } from 'app/core/services/repositories.service';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, from, BehaviorSubject, of } from 'rxjs';
-import { ProductImage } from 'src/app/core/models/product-image.model';
+import { ProductImage } from 'app/core/models/product-image.model';
 import { map, filter, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -17,12 +17,12 @@ import { map, filter, switchMap } from 'rxjs/operators';
 })
 export class ProductFormComponent implements OnInit {
 
-  form: FormGroup;
+  form: FormGroup = new FormGroup({});
+
   img: any;
-  productImage: ProductImage[];
+  productImage: ProductImage[] = [];
 
-
-  image$: Observable<any>;
+  image$!: Observable<any>;
   constructor(
     private formBuilder: FormBuilder,
     private repositoriesService: RepositoriesService,
@@ -30,6 +30,7 @@ export class ProductFormComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<ProductListComponent>,
+
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.buildForm();
     }
@@ -55,14 +56,11 @@ export class ProductFormComponent implements OnInit {
           fileImageAtt: ['']
         })
       ]),
-      /*productImage: [{
-        fileImage: ['']
-      }],*/
       description: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5)]],
     });
   }
 
-  ngOnInit( ) {
+ ngOnInit() {
     const product = this.data.product;
     if (product.productId !== null) {
       this.spinnerService.show();
@@ -165,13 +163,14 @@ export class ProductFormComponent implements OnInit {
           });
       } else {
         const productImage = Object.assign({}, product.productImage[0]); // JSON.parse(JSON.stringify(product.productImage[0]));
-        product.productImage.forEach(function (value) {
+        // tslint:disable-next-line: typedef
+        product.productImage.forEach(function (value: { fileImage: any; fileImageAtt: any; }) {
           delete value.fileImage;
           delete value.fileImageAtt;
         });
         if ( (product.productImage[0].productImageId !== '')  ) {
           // delete product.productImage;
-          
+
         }
         if (product.productImage[0].productImageId === null || product.productImage[0].productImageId === '' ) {
           delete product.productImage;
@@ -207,25 +206,25 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  uploadFile(event) {
+  uploadFile(event: { target: { files: any[]; }; }) {
     const file = event.target.files[0];
     const name = 'image.png';
-
+    const productId = this.form.get('productId') === null ? "" : this.form.get('productId')?.value;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (image) => {
       this.productImage = [
         {
-          productImageId: null,
+          productImageId: "",
           fileImage: reader.result,
           fileImageAtt: file,
-          productId: this.form.get('productId').value,
+          productId: productId,
         }
       ];
       const product = this.form.value;
       product.productImage = this.productImage;
       this.form.patchValue(product);
-      /*    
+      /*
       productImageId: string;
     fileName: string;
     fileImage: string;

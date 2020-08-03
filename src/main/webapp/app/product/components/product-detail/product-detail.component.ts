@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/core/models/product.model';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
+import { Product } from 'app/core/models/product.model';
+import { RepositoriesService } from 'app/core/services/repositories.service';
 import { switchMap } from 'rxjs/operators';
 import { Params, ActivatedRoute } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Params, ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
-  product$: Observable<Product>;
+  product$: Observable<Product> | undefined;
   constructor(
     private route: ActivatedRoute,
     private repositoriesService: RepositoriesService) { }

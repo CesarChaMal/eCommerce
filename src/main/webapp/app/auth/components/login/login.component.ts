@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
+import { RepositoriesService } from 'app/core/services/repositories.service';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { RepositoriesService } from 'src/app/core/services/repositories.service'
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
+  form: FormGroup = new FormGroup({});
   hide = true;
 
   constructor(
@@ -30,10 +30,10 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       const value = this.form.value;
       this.repositoriesService.authService.login(value.userName, value.password)
-      .subscribe(data => {
-        console.log(data);
-        this.router.navigate(['/admin']);
-      });
+      // .subscribe(data => {
+      //   console.log(data);
+      //   this.router.navigate(['/admin']);
+      // });
     }
   }
 

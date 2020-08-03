@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ProductListComponent } from 'src/app/admin/components/product-list/product-list.component';
+// import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material";
+import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ProductListComponent } from 'app/admin/components/product-list/product-list.component';
 
 @Component({
   selector: 'app-confirmation-dialog',

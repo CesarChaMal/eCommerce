@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from 'src/app/core/models/product.model';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Product } from 'app/core/models/product.model';
+import { RepositoriesService } from 'app/core/services/repositories.service';
+// import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+// import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { MatTableDataSource} from '@angular/material';
+// import { MatTableDataSource} from '@angular/material';
+import { MatTableDataSource} from '@angular/material/table';
 import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
@@ -18,7 +21,7 @@ import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/conf
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[];
+  products: Product[] = [];
   // products$: Observable<Product[]>;
   index = -1;
   displayedColumns: string[] = ['description', 'title', 'price', 'actions'];
@@ -96,8 +99,6 @@ export class ProductListComponent implements OnInit {
         });
       }
     });
-
-
   }
 
 }

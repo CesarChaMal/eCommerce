@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from 'src/app/core/models/product.model';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
+import { Product } from 'app/core/models/product.model';
+import { RepositoriesService } from 'app/core/services/repositories.service';
 
 @Component({
   selector: 'app-product',
@@ -9,7 +9,8 @@ import { RepositoriesService } from 'src/app/core/services/repositories.service'
 })
 export class ProductComponent implements OnInit {
 
-  @Input() product: Product;
+  @Input()
+  product!: Product;
   @Output() productClicked: EventEmitter<any> = new EventEmitter() ;
 
   today = new Date();

@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from '../token/token.service';
 import { tap, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'app/environments/environment.prod';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private userName = new BehaviorSubject<string>(null);
-  private isLogged = new BehaviorSubject<boolean>(null);
+  private userName = new BehaviorSubject<string>("");
+  private isLogged = new BehaviorSubject<boolean>(false);
   userName$ = this.userName.asObservable();
   isLogged$ = this.isLogged.asObservable();
   constructor(
@@ -28,6 +28,8 @@ export class AuthService {
       userName,
       password
     });
+
+/*
     return this.http.post(url, body )
     .pipe(
       tap( (data: {
@@ -43,6 +45,22 @@ export class AuthService {
         this.token.saveRefreshToken(refreshToken);
       })
     );
+*/
+    return this.http.post(url, body )
+    .subscribe(response => {
+      tap( (data: {
+          token: string,
+          refreshToken: string,
+          authorities: any
+        }) => {
+        const token = data.token;
+        const authorities = data.authorities;
+        const refreshToken = data.refreshToken;
+        this.token.saveToken(token);
+        this.token.saveUserName(userName);
+        this.token.saveRefreshToken(refreshToken);
+      })
+    });
   }
 
   logout() {
@@ -54,7 +72,7 @@ export class AuthService {
     const token = this.token.getToken();
     const userName = this.token.getUserName();
     const isLogged = token === null ? false : true;
-    this.userName.next(userName);
+    this.userName.next(userName === null ? "" : userName);
     this.isLogged.next(isLogged);
     return isLogged;
   }

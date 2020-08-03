@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
+import { RepositoriesService } from 'app/core/services/repositories.service';
 
 @Component({
   selector: 'app-nav',

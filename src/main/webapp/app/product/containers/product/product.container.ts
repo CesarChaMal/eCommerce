@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/core/models/product.model';
-import { RepositoriesService } from 'src/app/core/services/repositories.service';
+import { Product } from 'app/core/models/product.model';
+import { RepositoriesService } from 'app/core/services/repositories.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({

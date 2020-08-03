@@ -1,0 +1,39 @@
+#install frontend dependencies
+npm install
+
+#run frontend
+npm start
+
+#run app
+./mvnw
+or
+mvn spring-boot:run
+
+./mvnw -Pdev
+./mvnw -Pprod
+
+#run app with angular hot reload
+./mvnw -Pwebpack
+
+#node solve process out of memory in Node.js
+node --max-old-space-size=1024 index.js #increase to 1gb
+node --max-old-space-size=2048 index.js #increase to 2gb
+node --max-old-space-size=3072 index.js #increase to 3gb
+node --max-old-space-size=4096 index.js #increase to 4gb
+node --max-old-space-size=5120 index.js #increase to 5gb
+node --max-old-space-size=6144 index.js #increase to 6gb
+node --max-old-space-size=7168 index.js #increase to 7gb
+node --max-old-space-size=8192 index.js #increase to 8gb
+
+#preparing deploy
+./mvnw package -Pprod -DskipTests
+./mvnw package -Pdev -DskipTests
+
+#pushing to production
+heroku plugins:install java
+heroku deploy:jar target/*.jar
+heroku deploy:jar target/*.war
+
+#change heroku remote name
+git remote add heroku https://git.heroku.com/heroku-spring-getting-started.git
+heroku git:remote -a ecommerce

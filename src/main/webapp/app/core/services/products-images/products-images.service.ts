@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable, of, throwError, concat } from 'rxjs';
 import { catchError, map, tap, finalize, retryWhen, delay, take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'app/environments/environment.prod';
 import { ProductImage } from '../../models/product-image.model';
 
 @Injectable({
