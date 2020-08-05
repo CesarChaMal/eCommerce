@@ -107,6 +107,7 @@ export class ProductFormComponent implements OnInit {
     }
 
   }
+
   onRemoveImage(event: Event) {
     event.preventDefault();
     const product = this.form.value;
@@ -206,8 +207,12 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  uploadFile(event: { target: { files: any[]; }; }) {
-    const file = event.target.files[0];
+  // uploadFile(event: { target: { files: any[]; }; }) {
+  uploadFile(event: Event) {
+    // const file = event.target.files[0];
+    
+    // @ts-ignore: Object is possibly 'null'.
+    const file = (event.target as HTMLInputElement).files[0];
     const name = 'image.png';
     const productId = this.form.get('productId') === null ? "" : this.form.get('productId')?.value;
     const reader = new FileReader();

@@ -14,15 +14,24 @@ export class HeaderComponent implements OnInit {
   userName$: Observable<string> | undefined;
   authorities: any;
   isLogged$: Observable<boolean> | undefined;
-
   total$: Observable<string>;
+
   constructor(
     private router: Router,
     private repositoriesService: RepositoriesService) {
       this.total$ = this.repositoriesService.cartService.cart$
       .pipe(
+        map((products) => {
+          return products.length.toString()
+        })
+      );
+
+/*
+      this.total$ = this.repositoriesService.cartService.cart$
+      .pipe(
         map(products => products.length.toString() )
       );
+ */
     }
 
   ngOnInit() {

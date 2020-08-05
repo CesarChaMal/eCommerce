@@ -15,10 +15,8 @@
                 <a *ngIf="onEnabledEmp()"mat-button routerLink="/admin" routerLinkActive="active">Admin</a>
                 -->
             </nav>
-            <!--<a routerLink='/order' mat-raised-button [matBadge]="total$ | async" matBadgeColor="warn" >
-            (isLogged$ | async) as boolean
-            -->
-            <a routerLink='/order' mat-raised-button [matBadge]="total$ | async" matBadgeColor="primary" >
+            <!-- <a routerLink='/order' mat-raised-button [matBadge]="total$ | async" matBadgeColor="primary" > -->
+            <a routerLink='/order' mat-raised-button matBadgeColor="primary" >
                 <mat-icon>shopping_cart</mat-icon>
                 Cart
             </a>
