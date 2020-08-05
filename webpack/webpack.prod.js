@@ -30,7 +30,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         rules: [
         {
             test: /\.scss$/,
-            use: ['to-string-loader', 'css-loader', {
+            use: ['to-string-loader', 'css-loader', 'postcss-loader', {
                 loader: 'sass-loader',
                 options: { implementation: sass }
             }],
@@ -67,7 +67,8 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                         publicPath: '../'
                     }
                 },
-                'css-loader'
+                'css-loader',
+                'postcss-loader'
             ]
         }]
     },

@@ -1,0 +1,2 @@
+./node_modules/protractor/bin/webdriver-manager update --ignore_ssl --proxy=http://127.0.0.1:9000 --versions.gecko=v0.25.0 --versions.chrome=78.0.3904.105
+./node_modules/protractor/bin/webdriver-manager update --ignore_ssl --versions.gecko=v0.25.0 --versions.chrome=78.0.3904.105

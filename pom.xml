@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eCommerce</groupId>
-    <artifactId>eCommerce</artifactId>
-    <version>1.0</version>
+  <groupId>eCommerce</groupId>
+  <artifactId>eCommerce</artifactId>
+  <version>1.0</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,48 +29,48 @@
 
   <dependencies>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <scope>runtime</scope>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
     <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.6</version>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.6</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
     <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.4</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
     <dependency>
-        <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt</artifactId>
-        <version>0.9.0</version>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.0</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
     <!-- Security -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
   </dependencies>
 
@@ -78,8 +78,16 @@
     <defaultGoal>spring-boot:run</defaultGoal>
     <plugins>
       <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -117,11 +125,71 @@
         </configuration>
       </plugin>
     </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+              </path>
+            </annotationProcessorPaths>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-plugin.version}</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>${maven-war-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>default-war</id>
+              <goals>
+                <goal>war</goal>
+              </goals>
+              <phase>package</phase>
+            </execution>
+          </executions>
+          <configuration>
+            <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+            <warSourceDirectory>target/classes/static/</warSourceDirectory>
+            <webResources>
+              <resource>
+                <directory>src/main/webapp</directory>
+                <includes>
+                  <include>WEB-INF/**</include>
+                </includes>
+              </resource>
+            </webResources>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>com.github.eirslett</groupId>
+          <artifactId>frontend-maven-plugin</artifactId>
+          <version>${frontend-maven-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>false</filtering>
-        </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
     </resources>
   </build>
 
@@ -129,51 +197,51 @@
     <profile>
       <id>webpack</id>
       <activation>
-          <activeByDefault>true</activeByDefault>
+        <activeByDefault>true</activeByDefault>
       </activation>
       <build>
-          <plugins>
-              <plugin>
-                  <groupId>com.github.eirslett</groupId>
-                  <artifactId>frontend-maven-plugin</artifactId>
-            	  <version>${frontend-maven-plugin.version}</version>
-                  <executions>
-                      <execution>
-                          <id>install node and npm</id>
-                          <goals>
-                              <goal>install-node-and-npm</goal>
-                          </goals>
-                          <configuration>
-                              <nodeVersion>${node.version}</nodeVersion>
-                              <npmVersion>${npm.version}</npmVersion>
-                          </configuration>
-                      </execution>
-                      <execution>
-                          <id>npm install</id>
-                          <goals>
-                              <goal>npm</goal>
-                          </goals>
-                      </execution>
-                      <execution>
-                          <id>webpack build dev</id>
-                          <goals>
-                              <goal>npm</goal>
-                          </goals>
-                          <phase>generate-resources</phase>
-                          <configuration>
-                              <arguments>run webpack:build</arguments>
-                              <environmentVariables>
-                                  <APP_VERSION>${project.version}</APP_VERSION>
-                              </environmentVariables>
-                              <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                          </configuration>
-                      </execution>
-                  </executions>
-              </plugin>
-          </plugins>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>${frontend-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <configuration>
+                  <nodeVersion>${node.version}</nodeVersion>
+                  <npmVersion>${npm.version}</npmVersion>
+                </configuration>
+              </execution>
+              <execution>
+                <id>npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>webpack build dev</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run webpack:build</arguments>
+                  <environmentVariables>
+                    <APP_VERSION>${project.version}</APP_VERSION>
+                  </environmentVariables>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
       </build>
       <properties>
-          <spring.profiles.active>dev</spring.profiles.active>
+        <spring.profiles.active>dev</spring.profiles.active>
       </properties>
     </profile>
     <profile>
@@ -183,9 +251,9 @@
       </activation>
       <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <optional>true</optional>
         </dependency>
         <dependency>
           <groupId>org.springframework.boot</groupId>
@@ -210,6 +278,57 @@
                 </resource>
               </webResources>
             </configuration>
+          </plugin>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>${frontend-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <configuration>
+                  <nodeVersion>${node.version}</nodeVersion>
+                  <npmVersion>${npm.version}</npmVersion>
+                </configuration>
+              </execution>
+              <execution>
+                <id>npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <configuration>
+                  <arguments>install</arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>webpack build test</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>test</phase>
+                <configuration>
+                  <arguments>run webpack:test</arguments>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
+              </execution>
+              <execution>
+                <id>webpack build dev</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run webpack:dev-verbose</arguments>
+                  <environmentVariables>
+                    <APP_VERSION>${project.version}</APP_VERSION>
+                  </environmentVariables>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
@@ -289,36 +408,36 @@
               <execution>
                 <id>npm install</id>
                 <goals>
-                    <goal>npm</goal>
+                  <goal>npm</goal>
                 </goals>
                 <configuration>
-                    <arguments>install</arguments>
+                  <arguments>install</arguments>
                 </configuration>
               </execution>
               <execution>
-                  <id>webpack build test</id>
-                  <goals>
-                      <goal>npm</goal>
-                  </goals>
-                  <phase>test</phase>
-                  <configuration>
-                      <arguments>run webpack:test</arguments>
-                      <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                  </configuration>
+                <id>webpack build test</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>test</phase>
+                <configuration>
+                  <arguments>run webpack:test</arguments>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
               </execution>
               <execution>
-                  <id>webpack build prod</id>
-                  <goals>
-                      <goal>npm</goal>
-                  </goals>
-                  <phase>generate-resources</phase>
-                  <configuration>
-                      <arguments>run webpack:prod</arguments>
-                      <environmentVariables>
-                          <APP_VERSION>${project.version}</APP_VERSION>
-                      </environmentVariables>
-                      <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                  </configuration>
+                <id>webpack build prod</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run webpack:prod</arguments>
+                  <environmentVariables>
+                    <APP_VERSION>${project.version}</APP_VERSION>
+                  </environmentVariables>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -350,15 +469,15 @@
       </properties>
     </profile>
     <profile>
-    	<id>war</id>
-    	<build>
-	<plugins>
-	<plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-war-plugin</artifactId>
-	</plugin>
-	</plugins>
-    	</build>
+      <id>war</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 </project>

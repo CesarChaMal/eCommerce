@@ -4,6 +4,9 @@ npm install
 #run frontend
 npm start
 
+#build wepback
+npm run webpack:build
+
 #run app
 ./mvnw
 or

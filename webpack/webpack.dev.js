@@ -22,9 +22,6 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
                 '/api',
                 '/services',
                 '/management',
-                '/swagger-resources',
-                '/v2/api-docs',
-                '/h2-console',
                 '/auth'
             ],
             target: `http${options.tls ? 's' : ''}://localhost:9090`,
@@ -56,7 +53,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
         },
         {
             test: /\.scss$/,
-            use: ['to-string-loader', 'css-loader', {
+            use: ['to-string-loader', 'css-loader', 'postcss-loader', {
                 loader: 'sass-loader',
                 options: { implementation: sass }
             }],
@@ -64,7 +61,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
         },
         {
             test: /(vendor\.scss|global\.scss)/,
-            use: ['style-loader', 'css-loader', {
+            use: ['style-loader', 'css-loader', 'postcss-loader', {
                 loader: 'sass-loader',
                 options: { implementation: sass }
             }]
@@ -110,11 +107,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
         new writeFilePlugin(),
         new webpack.WatchIgnorePlugin([
             utils.root('src/test'),
-        ]),
-        new WebpackNotifierPlugin({
-            title: 'JHipster',
-            contentImage: path.join(__dirname, 'logo-jhipster.png')
-        })
+        ])
     ].filter(Boolean),
     mode: 'development'
 });
